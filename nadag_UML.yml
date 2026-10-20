@@ -1,0 +1,10 @@
+metadataId: bf45a463-434d-4b4d-84dc-9325780ab5fb
+output_directory: produktspesifikasjon
+product_slug: nadag_UML
+updated: '2026-10-20'
+outputs: geopackage
+scopes:
+- name: UML_modell
+  url: https://sosi.geonorge.no/svn/SOSI/SOSI%20Del%203/NGU/Grunnunders%c3%b8kelser%20forenklet-1.0_utkast2.xml
+  generator: xmi
+  description: ''
