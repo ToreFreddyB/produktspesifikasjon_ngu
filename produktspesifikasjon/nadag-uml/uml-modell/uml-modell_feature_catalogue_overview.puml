@@ -1,0 +1,95 @@
+@startuml
+' For wide diagrams, render with: plantuml -DPLANTUML_LIMIT_SIZE=16384 ...
+' The 'scale max' directive below caps the rendered output to prevent the
+' default PlantUML 4096px size limit from cropping the diagram.
+scale max 4000*4000
+
+title Nasjonal database for grunnundersøkelser (NADAG) - UML_modell - Oversikt
+
+skinparam backgroundColor #F5F5F5
+skinparam shadowing false
+skinparam RoundCorner 6
+skinparam ArrowColor #6C8198
+skinparam wrapWidth 200
+skinparam class {
+  BackgroundColor #FBF2E8
+  BorderColor #9C8578
+  FontColor #2D201A
+  HeaderBackgroundColor #EFE1D6
+  HeaderFontColor #2D201A
+  AttributeIconSize 0
+}
+skinparam note {
+  BackgroundColor #FFFFFF
+  BorderColor #6C8198
+  FontColor #2D201A
+}
+skinparam stereotypeCBackgroundColor #EAD9CE
+skinparam stereotypeCBorderColor #9C8578
+skinparam stereotypeCFontColor #2D201A
+
+package "Abstrakte Featurtyper" {
+  abstract class Supertype_Geotekn_obj_omr <<featureType>> {
+  }
+  abstract class Supertype_Geotekn_obj_pkt <<featureType>> {
+  }
+  abstract class Geotekniskmetode <<featureType>> {
+  }
+  abstract class "GeovitenskapeligUndersøkelse" as GeovitenskapeligUnders_kelse <<featureType>> {
+  }
+  abstract class "GeovitenskapligBorehullUndersøkelse" as GeovitenskapligBorehullUnders_kelse <<featureType>> {
+  }
+  abstract class GeotekniskSondering <<featureType>> {
+  }
+  abstract class GeovitenskapligBorehull <<featureType>> {
+  }
+  abstract class "GeovitenskapeligUndersøkelseGrense" as GeovitenskapeligUnders_kelseGrense <<featureType>> {
+  }
+}
+
+package "FeatureTypes" {
+  class GeotekniskBorehull <<featureType>> {
+  }
+  class KombinasjonSondering <<featureType>> {
+  }
+  class GeotekniskDokument <<featureType>> {
+  }
+  class GeotekniskBorehullUnders <<featureType>> {
+  }
+  class GeotekniskFeltUnders <<featureType>> {
+  }
+  class GeotekniskTolketLag <<featureType>> {
+  }
+  class GeotekniskTolketPunkt <<featureType>> {
+  }
+  class "GeotekniskUndersøkelseGrense" as GeotekniskUnders_kelseGrense <<featureType>> {
+  }
+  class GeotekniskUnders <<featureType>> {
+  }
+}
+
+
+GeovitenskapligBorehull <|-- GeotekniskBorehull
+GeotekniskBorehull --> GeotekniskUnders : undersOmr [0..*]
+GeotekniskBorehull --> GeotekniskBorehullUnders : harUndersøkelse [0..*]
+GeotekniskSondering <|-- KombinasjonSondering
+GeotekniskDokument --> GeotekniskBorehull : tilhørerGB [0..1]
+GeotekniskDokument --> GeotekniskUnders : tilhørerGU [0..1]
+GeotekniskDokument --> GeotekniskBorehullUnders : tilhørerGBU [0..1]
+GeotekniskDokument --> GeotekniskFeltUnders : tilhørerFeltUnders [0..1]
+GeovitenskapligBorehullUnders_kelse <|-- GeotekniskBorehullUnders
+GeotekniskBorehullUnders --> GeotekniskBorehull : undersPkt [0..1]
+GeotekniskBorehullUnders --> Geotekniskmetode : metode [0..*]
+GeotekniskFeltUnders --> GeotekniskUnders : tilhørerGU [0..1]
+GeotekniskTolketLag --> GeotekniskTolketPunkt : tilhørerTolketPunkt [0..1]
+GeotekniskTolketPunkt --> GeotekniskBorehull : tilhørerGB [0..1]
+GeotekniskTolketPunkt --> GeotekniskUnders : tilhørerGU [0..1]
+GeovitenskapeligUnders_kelseGrense <|-- GeotekniskUnders_kelseGrense
+GeovitenskapeligUnders_kelse <|-- GeotekniskUnders
+GeotekniskUnders --> GeotekniskBorehull : undersPkt [0..*]
+Supertype_Geotekn_obj_omr <|-- GeovitenskapeligUnders_kelse
+Supertype_Geotekn_obj_pkt <|-- GeovitenskapligBorehullUnders_kelse
+Geotekniskmetode <|-- GeotekniskSondering
+Supertype_Geotekn_obj_pkt <|-- GeovitenskapligBorehull
+
+@enduml
